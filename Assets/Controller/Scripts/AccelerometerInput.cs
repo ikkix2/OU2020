@@ -61,10 +61,8 @@ public class AccelerometerInput : MonoBehaviour {
         float runningSpeed = 0.98f;
 
         // 加速度センサーが使える場合、加速度センサーから移動速度を取得し移動
-        if (Input.acceleration.z > -0.5f) {
+        if (Input.acceleration.y != 0.0f && Input.acceleration.z > -0.5f) {
             runningSpeed = Mathf.Abs (runningSpeed + Input.acceleration.y);
-
-            UnityEngine.Debug.Log (runningSpeed);
 
             if (runningSpeed < 0.1f) {
                 runningSpeed = 0.0f;
