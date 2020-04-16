@@ -39,7 +39,7 @@ public class Timer : MonoBehaviour
             countText.text = "";
             totalTime -= Time.deltaTime;
             retime = (int)totalTime;
-            timeTexts.text = retime.ToString();
+            timeTexts.text = "残り時間: " + retime.ToString() + "秒";
             if (retime == 0)
             {
                 SceneManager.LoadScene("result");

@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
     [RequireComponent(typeof(ThirdPersonCharacter))]
-    public class ThirdPersonUserControl : MonoBehaviour
+    public class CharacterCOntroller : MonoBehaviour
     {
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
@@ -40,12 +40,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 countdown -= Time.deltaTime;
             }
-            else
+
+            if (!m_Jump)
             {
-                if (!m_Jump)
-                {
-                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-                }
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
         }
 

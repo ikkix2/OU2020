@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     bool isActive = false;
     NavMeshAgent agent;
     ThirdPersonCharacter character;
-    float countdown = 4f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
