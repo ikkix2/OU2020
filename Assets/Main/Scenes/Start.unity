@@ -853,11 +853,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3a25208cc4840cea804cc6df692c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 8
+  maxPlayers: 2
   isVisible: 1
   isOpen: 1
   roomName: {fileID: 1661705162}
   playerName: {fileID: 1007423439}
+  gameSceneName: gameScene
   stageName: Stage1
   stageDifficulty: Easy
 --- !u!1 &1007423438

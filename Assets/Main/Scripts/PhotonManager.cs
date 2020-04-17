@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 
@@ -24,7 +25,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [Header("DefaultRoomSettings")]
 
     // 最大人数
-    [SerializeField] private int maxPlayers = 4;
+    [SerializeField] public int maxPlayers;
 
     // 公開・非公開
     [SerializeField] private bool isVisible = true;
@@ -37,6 +38,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     // player名
     [SerializeField] private InputField playerName;
+
+    // GameSceneName
+    [SerializeField] public string gameSceneName;
 
     // ステージ
     [SerializeField] private string stageName = "Stage1";
@@ -63,8 +67,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     private void Start()
     {
+        SceneManager.sceneLoaded += OnLoadedScene;
         // Photonに接続
         Connect("1.0");
+    }
+
+    private void OnLoadedScene(Scene i_scene, LoadSceneMode i_mode)
+    {
+        if( i_scene.name == gameSceneName)
+        {
+            // ゲームシーンに移動が完了したら自分のオブジェクトを生成
+            PhotonNetwork.Instantiate("Prefabs/Item", new Vector3(0, 0.5f, 0), Quaternion.identity);
+        }
     }
 
 
@@ -400,6 +414,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         Debug.Log("NickName: " + PhotonNetwork.LocalPlayer.NickName);
 
+        // ラスト入室はここでゲームシーンに遷移
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            Debug.Log("LastEnter: " + PhotonNetwork.LocalPlayer.NickName);
+            SceneManager.LoadScene(gameSceneName);
+        }
+
     }
 
 
@@ -428,6 +449,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("OnPlayerEnteredRoom");
+
+        // ラスト入室以外はここでゲームシーンに遷移
+        if(PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            Debug.Log("NotLastEnter: " + PhotonNetwork.LocalPlayer.NickName);
+            SceneManager.LoadScene(gameSceneName);
+        }
     }
 
 
