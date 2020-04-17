@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 
@@ -32,7 +33,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private bool isOpen = true;
 
     // 部屋名
-    [SerializeField] private string roomName = "Knohhoso's Room";
+    [SerializeField] private InputField roomName;
+
+    // player名
+    [SerializeField] private InputField playerName;
 
     // ステージ
     [SerializeField] private string stageName = "Stage1";
@@ -137,7 +141,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // 部屋を作成して入室する
         if (PhotonNetwork.InLobby)
         {
-            PhotonNetwork.CreateRoom(roomName, roomOptions);
+            PhotonNetwork.CreateRoom(roomName.text, roomOptions);
         }
     }
 
@@ -172,7 +176,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // 入室 (存在しなければ部屋を作成して入室する)
         if (PhotonNetwork.InLobby)
         {
-            PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+            PhotonNetwork.JoinOrCreateRoom(roomName.text, roomOptions, TypedLobby.Default);
         }
     }
 
@@ -278,23 +282,39 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // 部屋を探して入室する
     public void FindAndJoinRoom()
     {
+        //if (roomInfoList != null)
+        //{
+        //    // ルームリストを展開して目的の部屋を探す
+        //    foreach (RoomInfo roomInfo in roomInfoList)
+        //    {
+        //        // ステージで絞り込み
+        //        if (roomInfo.CustomProperties["Stage"] as string == stageName)
+        //        {
+        //            // 難易度で絞り込み
+        //            if (roomInfo.CustomProperties["Difficulty"] as string == stageDifficulty)
+        //            {
+        //                // 満員でなければ部屋に入室する
+        //                if (roomInfo.PlayerCount < roomInfo.MaxPlayers)
+        //                {
+        //                    JoinRoom(roomInfo.Name);
+        //                    return;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         if (roomInfoList != null)
         {
             // ルームリストを展開して目的の部屋を探す
             foreach (RoomInfo roomInfo in roomInfoList)
             {
-                // ステージで絞り込み
-                if (roomInfo.CustomProperties["Stage"] as string == stageName)
+                if(roomInfo.Name == roomName.text)
                 {
-                    // 難易度で絞り込み
-                    if (roomInfo.CustomProperties["Difficulty"] as string == stageDifficulty)
+                    // 満員でなければ部屋に入室する
+                    if (roomInfo.PlayerCount < roomInfo.MaxPlayers)
                     {
-                        // 満員でなければ部屋に入室する
-                        if (roomInfo.PlayerCount < roomInfo.MaxPlayers)
-                        {
-                            JoinRoom(roomInfo.Name);
-                            return;
-                        }
+                        JoinRoom(roomInfo.Name);
+                        return;
                     }
                 }
             }
@@ -366,6 +386,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
 
+        PhotonNetwork.LocalPlayer.NickName = playerName.text;
+
         // 部屋の情報を表示
         if (PhotonNetwork.InRoom)
         {
@@ -375,6 +397,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("Difficulty: " + PhotonNetwork.CurrentRoom.CustomProperties["Difficulty"] as string);
             Debug.Log("Slots: " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers);
         }
+
+        Debug.Log("NickName: " + PhotonNetwork.LocalPlayer.NickName);
+
     }
 
 
