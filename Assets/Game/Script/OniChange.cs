@@ -6,12 +6,17 @@ public class OniChange : MonoBehaviour
 {
     int myOniFlg;
     int colOniFlg;
+    public GameObject oniImage;
 
-    // void start()
-    // {
-    //     myOniFlg = this.gameObject.GetComponent<PointManager>().oniFlg;
-    //     Debug.Log(myOniFlg);
-    // }
+    void start()
+    {
+        myOniFlg = this.gameObject.GetComponent<PointManager>().oniFlg;
+        Debug.Log(myOniFlg);
+        if (myOniFlg == 1)
+        {
+            oniImage.SetActive(true);
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -30,6 +35,14 @@ public class OniChange : MonoBehaviour
                     Debug.Log(myOniFlg);
                     colOniFlg = 0;
                     Debug.Log(colOniFlg);
+                    oniImage.SetActive(false);
+                }
+            }
+            if (myOniFlg == 0)
+            {
+                if (colOniFlg == 1)
+                {
+                    oniImage.SetActive(true);
                 }
             }
         }
