@@ -9,7 +9,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent (typeof (ThirdPersonCharacter))]
 public class PlayerController2 : MonoBehaviourPun {
-    public int ownerId = 0; // プレイヤー番号
+    public string ownerId = ""; // プレイヤー番号
     private float currentDirection = 0.0f; // 現在向いている角度
     private float originalDirection = 0.0f; // 原点となる角度
     private int runningTime = 0;
@@ -20,8 +20,8 @@ public class PlayerController2 : MonoBehaviourPun {
     private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
     private Transform m_Cam; // A reference to the main camera in the scenes transform
     private Vector3 m_CamForward; // The current forward direction of the camera
-    private Vector3 m_Move;
-    private bool m_Jump; // the world-relative desired move direction, calculated from the camForward and user input.
+    private Vector3 m_Move = new Vector3(0, 0, 0);
+    private bool m_Jump = false; // the world-relative desired move direction, calculated from the camForward and user input.
     [SerializeField]
     private GameObject mainCamera;
 
@@ -31,12 +31,17 @@ public class PlayerController2 : MonoBehaviourPun {
         Input.location.Start ();
 
         m_Cam = mainCamera.GetComponent<Transform> ();
-        ownerId = PhotonNetwork.LocalPlayer.ActorNumber;
         m_Character = GetComponent<ThirdPersonCharacter> ();
     }
 
     void Update () {
-        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+        if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
+            mainCamera.SetActive (false);
+            return;
+        } else if (ownerId != "" && ownerId + "camera" != PhotonNetwork.LocalPlayer.NickName) {
+            mainCamera.SetActive (false);
+            return;
+        } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             mainCamera.SetActive (false);
             return;
         }
@@ -93,6 +98,7 @@ public class PlayerController2 : MonoBehaviourPun {
 
         // Compassが利用できる場合、Compassに従ってY軸回転
         if (Input.compass.enabled) {
+            float checkNum = 0.0f;
             rotationAngles = transform.localRotation.eulerAngles;
 
             // 初回のみ原点にあたる角度を取得
@@ -100,14 +106,22 @@ public class PlayerController2 : MonoBehaviourPun {
                 originalDirection = Input.compass.magneticHeading;
             }
 
-            // 右に傾けたら右を向く
-            if (Input.compass.magneticHeading - originalDirection > 20.0f) {
-                rotationAngles.y = rotationAngles.y + 1.0f;
+            checkNum = Input.compass.magneticHeading - originalDirection;
+            if (checkNum > 360.0f) {
+                checkNum -= 360.0f;
+            } else if (checkNum < 0.0f) {
+                checkNum += 360.0f;
             }
 
             // 左に傾けたら左を向く
-            if (Input.compass.magneticHeading - originalDirection < -20.0f) {
+            if (checkNum > 310.0f && checkNum < 340.0f) {
                 rotationAngles.y = rotationAngles.y - 1.0f;
+                UnityEngine.Debug.Log("左");
+                UnityEngine.Debug.Log(checkNum);
+            } else if (checkNum > 20.0f && checkNum < 50.0f) {
+                rotationAngles.y = rotationAngles.y + 1.0f;
+                UnityEngine.Debug.Log("右");
+                UnityEngine.Debug.Log(checkNum);
             }
 
             // transform.localRotation = Quaternion.Euler (0, Input.compass.magneticHeading - originalDirection, 0);
@@ -127,7 +141,7 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     // デバッグ用表示
-    // [Conditional ("UNITY_EDITOR")]
+    [Conditional ("UNITY_EDITOR")]
     void OnGUI () {
         var sb = new System.Text.StringBuilder ();
         sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());
