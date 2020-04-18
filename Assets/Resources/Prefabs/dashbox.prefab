@@ -90,10 +90,9 @@ GameObject:
   - component: {fileID: 114967172266718884}
   - component: {fileID: 114439402880135656}
   - component: {fileID: 7806521278029917712}
-  - component: {fileID: 114673431878997254}
   m_Layer: 0
   m_Name: dashbox
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,19 +164,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5565608, y: 3.549542, z: 2.6182365}
   m_Center: {x: 0.01128185, y: 1.7129909, z: 0.002474707}
---- !u!114 &114673431878997254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4073904360923456667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25520a08c877a4b45be2fec37439b9db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transparent_mtl: {fileID: 2100000, guid: 84b2f979653fe4f3b83b04852f53e17c, type: 2}
 --- !u!1 &4073904360923456669
 GameObject:
   m_ObjectHideFlags: 0

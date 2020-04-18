@@ -6,6 +6,7 @@ using Photon.Pun;
 public class getItem : MonoBehaviour
 {
     public Material transparent_mtl;
+    public Material normal_mtl;
     Renderer rend;
     GameObject refObj;
 
@@ -17,23 +18,26 @@ public class getItem : MonoBehaviour
     public void OnTriggerEnter(UnityEngine.Collider other)
     {
         Debug.Log("OnTriggerEnter:::" + other.gameObject.name);
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Item"))
         {
-            Debug.Log("OnTriggerEnter:::Player" + other.gameObject.name);
-            rend = other.gameObject.GetComponent<Renderer>();
+            Debug.Log("OnTriggerEnter:::Item" + other.gameObject.name);
+            rend = gameObject.GetComponent<Renderer>();
             rend.material = transparent_mtl;
-            Destroy(gameObject);
+            StartCoroutine(DelayMethod(20, () =>
+            {
+                //20秒後に元に戻す
+                Debug.Log("Delay call material");
+                CreateItem create_item = refObj.GetComponent<CreateItem>();
+                rend.material = normal_mtl;
+            }));
+            Destroy(other.gameObject);
         }
 
-        //10秒後に実行する
+        //15秒後に実行する
         Debug.Log("StartCoroutine:::Before");
         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
         {
-            Debug.Log("Not Delay call");
-            CreateItem create_item2 = refObj.GetComponent<CreateItem>();
-            create_item2.RandomCreateItem();
-
-            StartCoroutine(DelayMethod(10.0f, () =>
+            StartCoroutine(DelayMethod(15, () =>
             {
                 Debug.Log("Delay call");
                 CreateItem create_item = refObj.GetComponent<CreateItem>();
@@ -50,10 +54,12 @@ public class getItem : MonoBehaviour
     /// <param name="waitTime">遅延時間[ミリ秒]</param>
     /// <param name="action">実行したい処理</param>
     /// <returns></returns>
-    private IEnumerator DelayMethod(float waitTime, Action action)
+    private IEnumerator DelayMethod(int waitTime, Action action)
     {
         Debug.Log("DelayMethod");
         yield return new WaitForSeconds(waitTime);
+        Debug.Log("DelayMethod::GO::waitTime" + waitTime);
         action();
+        Debug.Log("DelayMethod::After::waitTime" + waitTime);
     }
 }
