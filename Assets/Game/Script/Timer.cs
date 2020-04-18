@@ -40,9 +40,9 @@ public class Timer : MonoBehaviour
             totalTime -= Time.deltaTime;
             retime = (int)totalTime;
             timeTexts.text = "残り時間: " + retime.ToString() + "秒";
-            if (retime == 0)
+            if (retime <= 0)
             {
-                SceneManager.LoadScene("result");
+                SceneManager.LoadScene("Result");
             }
         }
     }

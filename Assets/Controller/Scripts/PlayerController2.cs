@@ -35,6 +35,7 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     void Update () {
+/*
         if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
             mainCamera.SetActive (false);
             return;
@@ -45,7 +46,7 @@ public class PlayerController2 : MonoBehaviourPun {
             mainCamera.SetActive (false);
             return;
         }
-
+*/
         Rotate ();
 
         if (!m_Jump) {

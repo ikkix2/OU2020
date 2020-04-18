@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PointManager : MonoBehaviour
 {
     public Text scoreText;
-    [SerializeField] public GameObject oniTextSet;
+    // [SerializeField] public GameObject oniTextSet;
     float getPoint = 0;
     int repoint;
     public int oniFlg = 0;
@@ -30,7 +30,7 @@ public class PointManager : MonoBehaviour
         {
             if (oniFlg == 0)
             {
-                oniTextSet.SetActive(false);
+                // oniTextSet.SetActive(false);
                 scoreText.text = "";
                 getPoint += Time.deltaTime;
                 repoint = (int)getPoint;
