@@ -22,26 +22,25 @@ public class PointManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (countdown > 0)
-        {
-            countdown -= Time.deltaTime;
-        }
-        else
-        {
-            if (oniFlg == 0)
-            {
-                // oniTextSet.SetActive(false);
-                scoreText.text = "";
-                getPoint += Time.deltaTime;
-                repoint = (int)getPoint;
-                scoreText.text = repoint.ToString() + "点";
-            }
+        // if (countdown > 0)
+        // {
+        //     countdown -= Time.deltaTime;
+        // }
+        // else
+        // {
+        //     if (oniFlg == 0)
+        //     {
+        //         // oniTextSet.SetActive(false);
+        //         scoreText.text = "";
+        //         getPoint += Time.deltaTime;
+        //         repoint = (int)getPoint;
+        //         scoreText.text = repoint.ToString() + "点";
+        //     }
 
-            if (oniFlg == 1)
-            {
-                // oniTextSet.SetActive(true);
-            }
-        }
-
+        //     if (oniFlg == 1)
+        //     {
+        //         // oniTextSet.SetActive(true);
+        //     }
+        // }
     }
 }
