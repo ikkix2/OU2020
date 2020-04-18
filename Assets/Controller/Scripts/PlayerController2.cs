@@ -115,11 +115,11 @@ public class PlayerController2 : MonoBehaviourPun {
 
             // 左に傾けたら左を向く
             if (checkNum > 310.0f && checkNum < 340.0f) {
-                rotationAngles.y = rotationAngles.y - 2.0f;
+                rotationAngles.y = rotationAngles.y - 1.0f;
                 UnityEngine.Debug.Log("左");
                 UnityEngine.Debug.Log(checkNum);
             } else if (checkNum > 20.0f && checkNum < 50.0f) {
-                rotationAngles.y = rotationAngles.y + 2.0f;
+                rotationAngles.y = rotationAngles.y + 1.0f;
                 UnityEngine.Debug.Log("右");
                 UnityEngine.Debug.Log(checkNum);
             }
@@ -141,7 +141,7 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     // デバッグ用表示
-    // [Conditional ("UNITY_EDITOR")]
+    [Conditional ("UNITY_EDITOR")]
     void OnGUI () {
         var sb = new System.Text.StringBuilder ();
         sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());

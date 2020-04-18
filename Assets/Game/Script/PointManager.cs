@@ -9,7 +9,7 @@ public class PointManager : MonoBehaviour
     [SerializeField] public GameObject oniTextSet;
     float getPoint = 0;
     int repoint;
-    public int oniFlg;
+    public int oniFlg = 0;
     float countdown = 4f;
 
 
@@ -39,7 +39,7 @@ public class PointManager : MonoBehaviour
 
             if (oniFlg == 1)
             {
-                oniTextSet.SetActive(true);
+                // oniTextSet.SetActive(true);
             }
         }
 
