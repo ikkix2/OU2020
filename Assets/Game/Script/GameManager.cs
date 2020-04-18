@@ -10,10 +10,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectsWithTag("Player");
-        Debug.Log(player.Length);
-        number = Random.Range(0, player.Length);
-        player[number].GetComponent<PointManager>().oniFlg = 1;
-
+        // number = Random.Range(0, character.Length);
+        number = 0;
+        character[number].GetComponent<PointManager>().oniFlg = 1;
     }
 }

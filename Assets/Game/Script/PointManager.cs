@@ -8,7 +8,7 @@ public class PointManager : MonoBehaviour
     // GameObject oniTextSet;
     float getPoint = 0;
     int repoint;
-    public int oniFlg;
+    public int oniFlg = 0;
     float countdown = 4f;
     // Update is called once per frame
     void Update()
