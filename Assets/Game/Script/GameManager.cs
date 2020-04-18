@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] character;
+    GameObject[] player;
     int selectedOniFlg;
     int number;
 
     void Start()
     {
-        number = Random.Range(0, character.Length);
-        character[number].GetComponent<PointManager>().oniFlg = 1;
+        player = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log(player.Length);
+        number = Random.Range(0, player.Length);
+        player[number].GetComponent<PointManager>().oniFlg = 1;
 
     }
 }

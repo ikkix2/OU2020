@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PointManager : MonoBehaviour
 {
-    public Text scoreText;
-    [SerializeField] public GameObject oniTextSet;
+    Text scoreText;
+    GameObject oniTextSet;
     float getPoint = 0;
     int repoint;
     public int oniFlg;
@@ -16,6 +16,17 @@ public class PointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // ScoreTextを取得
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        Debug.Log("スコアテキスト" + scoreText);
+
+        // Canvasを取得
+        GameObject canvas = GameObject.Find("Canvas");
+
+        // OniTestSetを取得
+        Transform oniTextSetTr = canvas.transform.Find("OniTextSet");
+        oniTextSet = oniTextSetTr.gameObject;
+        Debug.Log("オニテキストセット = " + oniTextSet);
 
     }
 

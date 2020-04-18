@@ -15,27 +15,22 @@ public class OniChange : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        myOniFlg = this.gameObject.GetComponent<PointManager>().oniFlg;
-        Debug.Log(myOniFlg);
-        colOniFlg = collision.gameObject.GetComponent<PointManager>().oniFlg;
-        Debug.Log(colOniFlg);
-        // if (myOniFlg == 0)
-        // {
-        //     if (colOniFlg == 1)
-        //     {
-        //         myOniFlg = 1;
-        //         Debug.Log(myOniFlg);
-        //     }
-        // }
-
-        if (myOniFlg == 1)
+        if (collision.gameObject.tag == "Player")
         {
-            if (colOniFlg == 0)
+            myOniFlg = this.gameObject.GetComponent<PointManager>().oniFlg;
+            Debug.Log(myOniFlg);
+            colOniFlg = collision.gameObject.GetComponent<PointManager>().oniFlg;
+            Debug.Log(colOniFlg);
+
+            if (myOniFlg == 1)
             {
-                myOniFlg = 0;
-                Debug.Log(myOniFlg);
-                colOniFlg = 0;
-                Debug.Log(colOniFlg);
+                if (colOniFlg == 0)
+                {
+                    myOniFlg = 0;
+                    Debug.Log(myOniFlg);
+                    colOniFlg = 0;
+                    Debug.Log(colOniFlg);
+                }
             }
         }
     }

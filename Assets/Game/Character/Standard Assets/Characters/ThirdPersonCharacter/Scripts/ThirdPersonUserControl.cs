@@ -35,52 +35,52 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            // カウントダウンが終わるまで待機させる
-            if (countdown > 0)
+            // // カウントダウンが終わるまで待機させる
+            // if (countdown > 0)
+            // {
+            //     countdown -= Time.deltaTime;
+            // }
+            // else
+            // {
+            if (!m_Jump)
             {
-                countdown -= Time.deltaTime;
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
-            else
-            {
-                if (!m_Jump)
-                {
-                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-                }
-            }
+            // }
         }
 
 
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            if (countdown <= 0)
-            {
-                // read inputs
-                float h = CrossPlatformInputManager.GetAxis("Horizontal");
-                float v = CrossPlatformInputManager.GetAxis("Vertical");
-                bool crouch = Input.GetKey(KeyCode.C);
+            // if (countdown <= 0)
+            // {
+            // read inputs
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            float v = CrossPlatformInputManager.GetAxis("Vertical");
+            bool crouch = Input.GetKey(KeyCode.C);
 
-                // calculate move direction to pass to character
-                if (m_Cam != null)
-                {
-                    // calculate camera relative direction to move:
-                    m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
-                    m_Move = v * m_CamForward + h * m_Cam.right;
-                }
-                else
-                {
-                    // we use world-relative directions in the case of no main camera
-                    m_Move = v * Vector3.forward + h * Vector3.right;
-                }
+            // calculate move direction to pass to character
+            if (m_Cam != null)
+            {
+                // calculate camera relative direction to move:
+                m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
+                m_Move = v * m_CamForward + h * m_Cam.right;
+            }
+            else
+            {
+                // we use world-relative directions in the case of no main camera
+                m_Move = v * Vector3.forward + h * Vector3.right;
+            }
 #if !MOBILE_INPUT
-                // walk speed multiplier
-                if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+            // walk speed multiplier
+            if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 #endif
 
-                // pass all parameters to the character control script
-                m_Character.Move(m_Move, crouch, m_Jump);
-                m_Jump = false;
-            }
+            // pass all parameters to the character control script
+            m_Character.Move(m_Move, crouch, m_Jump);
+            m_Jump = false;
+            // }
         }
     }
 }
