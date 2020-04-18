@@ -81,15 +81,17 @@ public class ItemController : MonoBehaviour
         // Aキー
         if (Input.GetKeyDown(KeyCode.A))
         {
-            // キューブに変身するRPCを送信
-            photonView.RPC("RpcChangeMesh", RpcTarget.All, "Cube");
+            //// キューブに変身するRPCを送信
+            //photonView.RPC("RpcChangeMesh", RpcTarget.All, "Cube");
+            transform.Translate(0, 0, 1);
         }
 
         // Sキー
         if (Input.GetKeyDown(KeyCode.S))
         {
-            // スフィアに変身するRPCを送信
-            photonView.RPC("RpcChangeMesh", RpcTarget.All, "Sphere");
+            //// スフィアに変身するRPCを送信
+            //photonView.RPC("RpcChangeMesh", RpcTarget.All, "Sphere");
+            transform.Translate(0, 0, -1);
         }
 
         // Dキー
