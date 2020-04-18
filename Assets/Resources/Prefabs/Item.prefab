@@ -128,10 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea093bcc27ddb49948a586d3e32c5164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  sphereMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  capsuleMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  cylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  cubeMesh: {fileID: 0}
+  sphereMesh: {fileID: 0}
+  capsuleMesh: {fileID: 0}
+  cylinderMesh: {fileID: 0}
 --- !u!114 &114713150755982174
 MonoBehaviour:
   m_ObjectHideFlags: 0
