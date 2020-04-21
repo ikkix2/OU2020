@@ -400,7 +400,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
 
-        PhotonNetwork.LocalPlayer.NickName = playerName.text + "camera";
+        PhotonNetwork.LocalPlayer.NickName = playerName.text;
 
         // 部屋の情報を表示
         if (PhotonNetwork.InRoom)

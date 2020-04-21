@@ -35,18 +35,16 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     void Update () {
-/*
-        if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
-            mainCamera.SetActive (false);
-            return;
-        } else if (ownerId != "" && ownerId + "camera" != PhotonNetwork.LocalPlayer.NickName) {
+        if (ownerId == "") {
+            // Do Nothing
+        } else if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
             mainCamera.SetActive (false);
             return;
         } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             mainCamera.SetActive (false);
             return;
         }
-*/
+
         Rotate ();
 
         if (!m_Jump) {
@@ -116,11 +114,11 @@ public class PlayerController2 : MonoBehaviourPun {
 
             // 左に傾けたら左を向く
             if (checkNum > 310.0f && checkNum < 340.0f) {
-                rotationAngles.y = rotationAngles.y - 1.0f;
+                rotationAngles.y = rotationAngles.y - 2.0f;
                 UnityEngine.Debug.Log("左");
                 UnityEngine.Debug.Log(checkNum);
             } else if (checkNum > 20.0f && checkNum < 50.0f) {
-                rotationAngles.y = rotationAngles.y + 1.0f;
+                rotationAngles.y = rotationAngles.y + 2.0f;
                 UnityEngine.Debug.Log("右");
                 UnityEngine.Debug.Log(checkNum);
             }
@@ -142,7 +140,7 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     // デバッグ用表示
-    [Conditional ("UNITY_EDITOR")]
+    // [Conditional ("UNITY_EDITOR")]
     void OnGUI () {
         var sb = new System.Text.StringBuilder ();
         sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());

@@ -22,10 +22,10 @@ public class PointManager : MonoBehaviour
             if (oniFlg == 0)
             {
                 // oniTextSet.SetActive(false);
-                scoreText.text = "";
+                //scoreText.text = "";
                 getPoint += Time.deltaTime;
                 repoint = (int)getPoint;
-                scoreText.text = repoint.ToString();
+                //scoreText.text = repoint.ToString();
             }
         }
     }

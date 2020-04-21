@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // number = Random.Range(0, character.Length);
-        number = 0;
-        character[number].GetComponent<PointManager>().oniFlg = 1;
+        // number = 0;
+        // character[number].GetComponent<PointManager>().oniFlg = 1;
     }
 }

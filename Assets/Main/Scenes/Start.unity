@@ -858,7 +858,7 @@ MonoBehaviour:
   isOpen: 1
   roomName: {fileID: 1661705162}
   playerName: {fileID: 1007423439}
-  gameSceneName: Game/Scene/gameScene
+  gameSceneName: Controller/Scenes/Controller
   stageName: Stage1
   stageDifficulty: Easy
 --- !u!1 &1007423438
