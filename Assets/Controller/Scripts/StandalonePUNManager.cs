@@ -26,10 +26,10 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
 
     //ルームに入室後に呼び出される
     public override void OnJoinedRoom () {
-        int x = Random.Range (-10, 10);
-        int z = Random.Range (-10, 10);
+        int x = Random.Range (-2, 2);
+        int z = Random.Range (-2, 2);
 
-        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 0, z), Quaternion.identity, 0);
+        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 1, z), Quaternion.identity, 0);
         PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
     }
 }

@@ -733,10 +733,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovingTurnSpeed: 0
   m_StationaryTurnSpeed: 0
-  m_JumpPower: 12
+  m_JumpPower: 5
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 0.1
+  m_MoveSpeedMultiplier: 0.4
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.3
 --- !u!114 &7972342492488300421
@@ -3091,7 +3091,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2112775518546353508}
   - component: {fileID: 8280343828541414103}
-  - component: {fileID: 5449917620423096542}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -3107,7 +3106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7151165916651286123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.44, z: -2.83}
+  m_LocalPosition: {x: 0, y: 2, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 511005065070256286}
@@ -3155,11 +3154,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5449917620423096542
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7151165916651286123}
-  m_Enabled: 1

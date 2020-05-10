@@ -35,15 +35,15 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     void Update () {
-        if (ownerId == "") {
-            // Do Nothing
-        } else if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
-            mainCamera.SetActive (false);
-            return;
-        } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
-            mainCamera.SetActive (false);
-            return;
-        }
+        // if (ownerId == "") {
+        //     // Do Nothing
+        // } else if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
+        //     mainCamera.SetActive (false);
+        //     return;
+        // } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+        //     mainCamera.SetActive (false);
+        //     return;
+        // }
 
         Rotate ();
 
