@@ -77,7 +77,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if( i_scene.name == gameSceneName)
         {
             // ゲームシーンに移動が完了したら自分のオブジェクトを生成
-            PhotonNetwork.Instantiate("Prefabs/Item", new Vector3(0, 0.5f, 0), Quaternion.identity);
+            // PhotonNetwork.Instantiate("Prefabs/Item", new Vector3(0, 0.5f, 0), Quaternion.identity);
         }
     }
 

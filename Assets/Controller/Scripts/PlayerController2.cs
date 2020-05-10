@@ -24,26 +24,33 @@ public class PlayerController2 : MonoBehaviourPun {
     private bool m_Jump = false; // the world-relative desired move direction, calculated from the camForward and user input.
     [SerializeField]
     private GameObject mainCamera;
+    private GameObject originalCamera;
 
     void Start () {
         Input.gyro.enabled = true; // ジャイロセンサー有効化
         Input.compass.enabled = true; // コンパス有効化
         Input.location.Start ();
 
+        originalCamera = Camera.main.gameObject;
         m_Cam = mainCamera.GetComponent<Transform> ();
         m_Character = GetComponent<ThirdPersonCharacter> ();
+
+        // ゲスト以外の場合は初期設定のカメラを無効化し、自身のカメラを有効化する
+        if (ownerId == "guest") {
+            originalCamera.SetActive (true);
+        } else {
+            originalCamera.SetActive (false);
+        }
     }
 
     void Update () {
-        // if (ownerId == "") {
-        //     // Do Nothing
-        // } else if (ownerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
-        //     mainCamera.SetActive (false);
-        //     return;
-        // } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
-        //     mainCamera.SetActive (false);
-        //     return;
-        // }
+        if (ownerId == "guest") {
+            mainCamera.SetActive (false);
+        // } else if (onwerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
+        } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+            mainCamera.SetActive (false);
+            return;
+        }
 
         Rotate ();
 
@@ -140,7 +147,7 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     // デバッグ用表示
-    // [Conditional ("UNITY_EDITOR")]
+    [Conditional ("UNITY_EDITOR")]
     void OnGUI () {
         var sb = new System.Text.StringBuilder ();
         sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());

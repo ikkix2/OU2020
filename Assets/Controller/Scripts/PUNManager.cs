@@ -12,9 +12,10 @@ public class PUNManager : MonoBehaviourPunCallbacks {
     void Start () {
         // PhotonNetwork.ConnectUsingSettings ();
 
-        int x = Random.Range (-5, 5);
-        int z = Random.Range (-5, 5);
-        GameObject player = PhotonNetwork.Instantiate ("Player2", new Vector3 (x, 2, z), Quaternion.identity, 0);
+        int x = Random.Range (-5, 2);
+        int z = Random.Range (-5, 2);
+
+        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 3, z), Quaternion.identity, 0);
         PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
         playerController2.ownerId = PhotonNetwork.LocalPlayer.NickName;
     }
@@ -27,17 +28,17 @@ public class PUNManager : MonoBehaviourPunCallbacks {
     //     PhotonNetwork.ConnectUsingSettings ();
     // }
 
-    // //ルームに入室前に呼び出される
+    // // ルームに入室前に呼び出される
     // public override void OnConnectedToMaster () {
     //     PhotonNetwork.JoinOrCreateRoom (roomName, new RoomOptions (), TypedLobby.Default);
     // }
 
-    // //ルームに入室後に呼び出される
+    // // ルームに入室後に呼び出される
     // public override void OnJoinedRoom () {
-    //     int x = Random.Range (-10, 10);
-    //     int z = Random.Range (-10, 10);
+    //     int x = Random.Range (-2, 2);
+    //     int z = Random.Range (-2, 2);
 
-    //     GameObject player = PhotonNetwork.Instantiate ("Player-Unity", new Vector3 (x, 0, z), Quaternion.identity, 0);
+    //     GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 3, z), Quaternion.identity, 0);
     //     PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
     // }
 }

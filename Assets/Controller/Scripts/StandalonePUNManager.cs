@@ -10,8 +10,23 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
     private string roomName = ""; // 部屋名
 
     void Start () {
-        roomName = "room";
-        PhotonNetwork.ConnectUsingSettings ();
+        if (PhotonNetwork.IsConnectedAndReady == false) {
+            // サーバー未接続時の処理
+            roomName = "room";
+            PhotonNetwork.ConnectUsingSettings ();
+        } else {
+            Init();
+        }
+    }
+
+    // プレイヤーを配置する
+    private void Init () {
+        int x = Random.Range (-5, 2);
+        int z = Random.Range (-5, 2);
+
+        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 3, z), Quaternion.identity, 0);
+        PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
+        playerController2.ownerId = PhotonNetwork.LocalPlayer.NickName;
     }
 
     void OnGUI () {
@@ -20,16 +35,15 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
 
     //ルームに入室前に呼び出される
     public override void OnConnectedToMaster () {
-        // "room"という名前のルームに参加
-        PhotonNetwork.JoinOrCreateRoom (roomName, new RoomOptions (), TypedLobby.Default);
+        if (PhotonNetwork.CurrentRoom == null) {
+            PhotonNetwork.JoinOrCreateRoom (roomName, new RoomOptions (), TypedLobby.Default);
+        }
     }
 
     //ルームに入室後に呼び出される
     public override void OnJoinedRoom () {
-        int x = Random.Range (-2, 2);
-        int z = Random.Range (-2, 2);
-
-        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 1, z), Quaternion.identity, 0);
-        PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
+        if (PhotonNetwork.CurrentRoom != null) {
+            Init();
+        }
     }
 }
