@@ -187,6 +187,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // ロビーに公開するカスタムプロパティを指定
         roomOptions.CustomRoomPropertiesForLobby = new string[] { "Stage", "Difficulty" };
 
+        // 部屋名で参加人数を変える
+        if (roomName.text == "room1") {
+            roomOptions.MaxPlayers = (byte)1;
+        } else if (roomName.text == "room2") {
+            roomOptions.MaxPlayers = (byte)2;
+        } else if (roomName.text == "room3") {
+            roomOptions.MaxPlayers = (byte)3;
+        } else if (roomName.text == "room4") {
+            roomOptions.MaxPlayers = (byte)4;
+        }
+
         // 入室 (存在しなければ部屋を作成して入室する)
         if (PhotonNetwork.InLobby)
         {

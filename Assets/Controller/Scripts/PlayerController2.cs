@@ -38,6 +38,7 @@ public class PlayerController2 : MonoBehaviourPun {
         // ゲスト以外の場合は初期設定のカメラを無効化し、自身のカメラを有効化する
         if (ownerId == "guest") {
             originalCamera.SetActive (true);
+            mainCamera.SetActive (false);
         } else {
             originalCamera.SetActive (false);
         }
@@ -46,6 +47,7 @@ public class PlayerController2 : MonoBehaviourPun {
     void Update () {
         if (ownerId == "guest") {
             mainCamera.SetActive (false);
+            return;
         // } else if (onwerId != "" && ownerId != PhotonNetwork.LocalPlayer.NickName) {
         } else if (photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             mainCamera.SetActive (false);
@@ -147,26 +149,26 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     // デバッグ用表示
-    [Conditional ("UNITY_EDITOR")]
-    void OnGUI () {
-        var sb = new System.Text.StringBuilder ();
-        sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());
-        sb.Append ("headingAccuracy:").AppendLine (Input.compass.headingAccuracy.ToString ());
-        sb.Append ("magneticHeading:").AppendLine (Input.compass.magneticHeading.ToString ());
-        sb.Append ("rawVector      :").AppendLine (Input.compass.rawVector.ToString ());
-        sb.Append ("timestamp      :").AppendLine (Input.compass.timestamp.ToString ());
-        sb.Append ("trueHeading    :").AppendLine (Input.compass.trueHeading.ToString ());
-        sb.Append ("comps-X:       :").AppendLine (Input.compass.rawVector.x.ToString ());
-        sb.Append ("comps-Y:       :").AppendLine (Input.compass.rawVector.y.ToString ());
-        sb.Append ("comps-Z:       :").AppendLine (Input.compass.rawVector.z.ToString ());
-        sb.Append ("accel-X:       :").AppendLine (Input.acceleration.x.ToString ("f2"));
-        sb.Append ("accel-Y:       :").AppendLine (Input.acceleration.y.ToString ("f2"));
-        sb.Append ("accel-Z:       :").AppendLine (Input.acceleration.z.ToString ("f2"));
-        sb.Append ("gyro-X:        :").AppendLine (Input.gyro.attitude.x.ToString ("f2"));
-        sb.Append ("gyro-Y:        :").AppendLine (Input.gyro.attitude.y.ToString ("f2"));
-        sb.Append ("gyro-Z:        :").AppendLine (Input.gyro.attitude.z.ToString ("f2"));
-        sb.Append ("gyro-W:        :").AppendLine (Input.gyro.attitude.w.ToString ("f2"));
-        sb.Append ("OwnerId:       :").AppendLine (ownerId.ToString ());
-        GUI.Label (new Rect (10, 10, 384, 384), sb.ToString ());
-    }
+    // [Conditional ("UNITY_EDITOR")]
+    // void OnGUI () {
+    //     var sb = new System.Text.StringBuilder ();
+    //     sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());
+    //     sb.Append ("headingAccuracy:").AppendLine (Input.compass.headingAccuracy.ToString ());
+    //     sb.Append ("magneticHeading:").AppendLine (Input.compass.magneticHeading.ToString ());
+    //     sb.Append ("rawVector      :").AppendLine (Input.compass.rawVector.ToString ());
+    //     sb.Append ("timestamp      :").AppendLine (Input.compass.timestamp.ToString ());
+    //     sb.Append ("trueHeading    :").AppendLine (Input.compass.trueHeading.ToString ());
+    //     sb.Append ("comps-X:       :").AppendLine (Input.compass.rawVector.x.ToString ());
+    //     sb.Append ("comps-Y:       :").AppendLine (Input.compass.rawVector.y.ToString ());
+    //     sb.Append ("comps-Z:       :").AppendLine (Input.compass.rawVector.z.ToString ());
+    //     sb.Append ("accel-X:       :").AppendLine (Input.acceleration.x.ToString ("f2"));
+    //     sb.Append ("accel-Y:       :").AppendLine (Input.acceleration.y.ToString ("f2"));
+    //     sb.Append ("accel-Z:       :").AppendLine (Input.acceleration.z.ToString ("f2"));
+    //     sb.Append ("gyro-X:        :").AppendLine (Input.gyro.attitude.x.ToString ("f2"));
+    //     sb.Append ("gyro-Y:        :").AppendLine (Input.gyro.attitude.y.ToString ("f2"));
+    //     sb.Append ("gyro-Z:        :").AppendLine (Input.gyro.attitude.z.ToString ("f2"));
+    //     sb.Append ("gyro-W:        :").AppendLine (Input.gyro.attitude.w.ToString ("f2"));
+    //     sb.Append ("OwnerId:       :").AppendLine (ownerId.ToString ());
+    //     GUI.Label (new Rect (10, 10, 384, 384), sb.ToString ());
+    // }
 }

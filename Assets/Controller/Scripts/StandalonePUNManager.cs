@@ -15,7 +15,7 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
             roomName = "room";
             PhotonNetwork.ConnectUsingSettings ();
         } else {
-            Init();
+            Init ();
         }
     }
 
@@ -24,7 +24,12 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
         int x = Random.Range (-5, 2);
         int z = Random.Range (-5, 2);
 
-        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3(x, 3, z), Quaternion.identity, 0);
+        // 観戦者の場合は何もしない
+        if (PhotonNetwork.LocalPlayer.NickName == "guest") {
+            return;
+        }
+
+        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3 (x, 3, z), Quaternion.identity, 0);
         PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
         playerController2.ownerId = PhotonNetwork.LocalPlayer.NickName;
     }
@@ -43,7 +48,7 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
     //ルームに入室後に呼び出される
     public override void OnJoinedRoom () {
         if (PhotonNetwork.CurrentRoom != null) {
-            Init();
+            Init ();
         }
     }
 }
