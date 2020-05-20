@@ -205,6 +205,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // 2-1. 部屋に入室する （存在しなければ作成して入室する）
+    public void JoinOrCreateRoomForMultiPlayers(string Name)
+    {
+        roomName.text = Name;
+        JoinOrCreateRoom();
+    }
 
     // 3. 特定の部屋に入室する
     public void JoinRoom(string targetRoomName)
