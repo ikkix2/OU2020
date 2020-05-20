@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -21,15 +23,35 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
 
     // プレイヤーを配置する
     private void Init () {
-        int x = Random.Range (-5, 2);
-        int z = Random.Range (-5, 2);
+        // 出現位置
+        List<Vector3> list = new List<Vector3> ();
+        list.Add(new Vector3 (-7, 3, -4));
+        list.Add(new Vector3 (-8, 3, 0));
+        list.Add(new Vector3 (-8, 3, 6));
+        list.Add(new Vector3 (-1, 3, 7));
+        list.Add(new Vector3 (-1, 3, -4));
+        list.Add(new Vector3 (5, 3, 3));
+        list.Add(new Vector3 (8, 3, 0));
+        list.Add(new Vector3 (8, 3, -4));
+
+        // 向き
+        List<Quaternion> qs = new List<Quaternion>();
+        qs.Add(Quaternion.Euler(0, 0, 0));
+        qs.Add(Quaternion.Euler(0, 90, 0));
+        qs.Add(Quaternion.Euler(0, 180, 0));
+        qs.Add(Quaternion.Euler(0, 270, 0));
+
+
+        // ランダムで出現する位置と向きを選ぶ
+        int n1 = Random.Range (0, (list.Count - 1));
+        int n2 = Random.Range (0, (qs.Count - 1));
 
         // 観戦者の場合は何もしない
         if (PhotonNetwork.LocalPlayer.NickName == "guest") {
             return;
         }
 
-        GameObject player = PhotonNetwork.Instantiate ("Player", new Vector3 (x, 3, z), Quaternion.identity, 0);
+        GameObject player = PhotonNetwork.Instantiate ("Player", list[n1], qs[n2], 0);
         PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
         playerController2.ownerId = PhotonNetwork.LocalPlayer.NickName;
     }
