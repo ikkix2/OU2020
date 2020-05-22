@@ -1,49 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
-{
+public class Timer : MonoBehaviour {
     public Text timeTexts;
     public Text countText;
-    float totalTime = 180;
+    float totalTime = 60;
     int retime;
     float countdown = 4f;
     int count;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start () {
 
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (countdown > 0)
-        {
+    void Update () {
+        if (countdown > 0) {
             countdown -= Time.deltaTime;
-            count = (int)countdown;
-            countText.text = count.ToString();
+            count = (int) countdown;
+            countText.text = count.ToString ();
         }
 
-        if (count == 0)
-        {
+        if (count == 0) {
             countText.text = "START";
         }
 
-        if (countdown < 0)
-        {
+        if (countdown < 0) {
             countText.text = "";
             totalTime -= Time.deltaTime;
-            retime = (int)totalTime;
-            timeTexts.text = "残り時間: " + retime.ToString() + "秒";
-            if (retime == 0)
-            {
-                SceneManager.LoadScene("result");
-            }
+            retime = (int) totalTime;
+            timeTexts.text = "残り時間: " + retime.ToString () + "秒";
+
+            // if (retime == 0) {
+            //     SceneManager.LoadScene ("result");
+            // }
         }
     }
 }
