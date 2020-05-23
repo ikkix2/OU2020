@@ -32,17 +32,19 @@ public class PlayerController2 : MonoBehaviourPun {
         Input.compass.enabled = true; // コンパス有効化
         Input.location.Start ();
 
-        originalCamera = Camera.main.gameObject;
+        originalCamera = GameObject.FindWithTag ("MainCamera");
         m_Cam = mainCamera.GetComponent<Transform> ();
         m_Character = GetComponent<ThirdPersonCharacter> ();
-        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        scoreText = GameObject.Find ("ScoreText").GetComponent<Text> ();
 
         // ゲスト以外の場合は初期設定のカメラを無効化し、自身のカメラを有効化する
         if (ownerId == "guest") {
             originalCamera.SetActive (true);
             mainCamera.SetActive (false);
         } else {
-            originalCamera.SetActive (false);
+            if (originalCamera.activeSelf) {
+                originalCamera.SetActive (false);
+            }
         }
 
         // 鬼の場合帽子を表示？
@@ -62,7 +64,7 @@ public class PlayerController2 : MonoBehaviourPun {
         }
 
         Rotate ();
-        AddScore();
+        AddScore ();
 
         if (!m_Jump) {
             m_Jump = CrossPlatformInputManager.GetButtonDown ("Jump");
@@ -128,12 +130,10 @@ public class PlayerController2 : MonoBehaviourPun {
             }
 
             // 左に傾けたら左を向く
-            if (currentDirection > 310.0f && currentDirection < 340.0f) {
+            if (currentDirection > 260.0f && currentDirection < 340.0f) {
                 rotationAngles.y = rotationAngles.y - 2.0f;
-                UnityEngine.Debug.Log ("左");
-            } else if (currentDirection > 20.0f && currentDirection < 50.0f) {
+            } else if (currentDirection > 20.0f && currentDirection < 80.0f) {
                 rotationAngles.y = rotationAngles.y + 2.0f;
-                UnityEngine.Debug.Log ("右");
             }
 
             // transform.localRotation = Quaternion.Euler (0, Input.compass.magneticHeading - originalDirection, 0);
@@ -153,29 +153,44 @@ public class PlayerController2 : MonoBehaviourPun {
     }
 
     void AddScore () {
+        if (photonView.IsMine == false) {
+            return;
+        }
+
         if (!oniFlg) {
-            score += (int) Time.deltaTime;
-            scoreText.text = score.ToString() + "点";
+            score += (int) 1;
+            scoreText.text = score.ToString () + "点";
         } else {
             scoreText.text = "あなたが鬼です！";
         }
     }
 
-    // 接触時の処理
-    void OnCollisionEnter (Collision collision) {
-        if (collision.gameObject.tag == "Player") {
-            bool colOniFlg = collision.gameObject.GetComponent<PlayerController2> ().oniFlg;
+    void Touched () {
+        float n1 = Random.Range (-0.3f, 0.3f);
+        float n2 = Random.Range (-0.3f, 0.3f);
 
-            if (colOniFlg) {
-                // oniImage.SetActive (true);
-                oniFlg = true;
-                colOniFlg = false;
+        GetComponent<Rigidbody> ().AddForce (new Vector3 (n1, 1.0f, n2) * 12.0f, ForceMode.Impulse);
+        oniFlg = true;
+    }
+
+    // 接触時の処理
+    void OnTriggerEnter (Collider col) {
+        //void OnControllerColliderHit (ControllerColliderHit col) {
+        if (photonView.IsMine == false) {
+            return;
+        }
+
+        if (col.gameObject.tag == "Player") {
+            if (oniFlg) {
+                oniFlg = false;
+                col.gameObject.GetComponent<PlayerController2> ().Touched ();
+            } else if (col.gameObject.GetComponent<PlayerController2> ().oniFlg) {
+                Touched ();
             }
         }
     }
 
     // デバッグ用表示
-    // [Conditional ("UNITY_EDITOR")]
     // void OnGUI () {
     //     var sb = new System.Text.StringBuilder ();
     //     sb.Append ("Enabled        :").AppendLine (Input.compass.enabled.ToString ());

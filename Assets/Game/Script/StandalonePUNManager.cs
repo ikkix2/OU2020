@@ -10,7 +10,6 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
     // Unity上でのAppIDの設定方法はこちら https://qiita.com/UpAllNight/items/43e1b24301eb6029f18b
 
     private string roomName = ""; // 部屋名
-    private int userNum = 0;
 
     void Start () {
         if (PhotonNetwork.IsConnectedAndReady == false) {
@@ -54,13 +53,12 @@ public class StandalonePUNManager : MonoBehaviourPunCallbacks {
         GameObject player = PhotonNetwork.Instantiate ("Player", list[n1], qs[n2], 0);
         PlayerController2 playerController2 = player.GetComponent<PlayerController2> ();
         playerController2.ownerId = PhotonNetwork.LocalPlayer.NickName;
-        playerController2.ownerNo = userNum;
+        // playerController2.ownerNo = PhotonNetwork.CurrentRoom.PlayerCount;
+        playerController2.ownerNo = PhotonNetwork.LocalPlayer.ActorNumber;
 
-        if (userNum == 0) {
+        if (playerController2.ownerNo == 1) {
             playerController2.oniFlg = true;
         }
-
-        userNum++;
     }
 
     void OnGUI () {
